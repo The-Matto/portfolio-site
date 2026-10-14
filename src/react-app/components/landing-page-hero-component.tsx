@@ -57,19 +57,19 @@ export default function LandingPageHero() {
 
                     {/* Line band: the "previous / next station" strip, one half per line */}
                     <div className="grid grid-cols-2 text-white font-bold">
-                        <a href="#projects" style={{ backgroundColor: transitLines.G.color }}
+                        <a href="#projects" style={{ backgroundColor: transitLines.W.color }}
                             className="flex items-center gap-2 px-4 py-3 hover:brightness-110 transition">
                             <span aria-hidden="true">◀</span>
                             <span className="leading-tight">
-                                <span className="block text-xs opacity-80">{transitLines.G.nameJp}</span>
-                                {transitLines.G.name}
-                            </span>
-                        </a>
-                        <a href="#projects" style={{ backgroundColor: transitLines.W.color }}
-                            className="flex items-center justify-end gap-2 px-4 py-3 text-right hover:brightness-110 transition">
-                            <span className="leading-tight">
                                 <span className="block text-xs opacity-80">{transitLines.W.nameJp}</span>
                                 {transitLines.W.name}
+                            </span>
+                        </a>
+                        <a href="#projects" style={{ backgroundColor: transitLines.G.color }}
+                            className="flex items-center justify-end gap-2 px-4 py-3 text-right hover:brightness-110 transition">
+                            <span className="leading-tight">
+                                <span className="block text-xs opacity-80">{transitLines.G.nameJp}</span>
+                                {transitLines.G.name}
                             </span>
                             <span aria-hidden="true">▶</span>
                         </a>
