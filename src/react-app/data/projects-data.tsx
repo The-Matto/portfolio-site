@@ -1,5 +1,5 @@
 export enum ProjectTag {
-    BrowserExtension = "BrowserExtension",
+    BrowserExtension = "Browser Extension",
     UnrealEngine = "Unreal Engine",
     Cpp = "C++",
     GameDev = "Game Dev",
@@ -27,11 +27,11 @@ export interface ProjectYoutubeMedia {
 export type ProjectMedia = ProjectImageMedia | ProjectYoutubeMedia;
 
 export function image(src: string): ProjectMedia {
-    return {type: "image", src};
+    return { type: "image", src };
 }
 
 export function youtube(videoId: string): ProjectMedia {
-    return {type: "youtube", videoId};
+    return { type: "youtube", videoId };
 }
 
 // YouTube serves a thumbnail for any video at this URL with no API key
@@ -64,10 +64,10 @@ export const projects: Project[] = [
     },
     {
         id: "project-clarity-engine",
-        title: "C++ OpenGL Game engine",
-        description: "Architected and developed a modular 3D engine using OpenGL, C++ and GLFW, featuring decoupled subsystems, JSON-based level serialization, Phong lighting, and model loading via Assimp. Built a custom reflection system for real-time variable updates and an asset manager for automatic asset discovery and management. Used Premake to maintain a consistent, cross-platform, multi-IDE build environment. \n \n Currently extending the engine with a module-based DLL architecture to support hot-reloadable systems, along with shader hot reloading.",
+        title: "C++ OpenGL Game Engine",
+        description: "I wanted a deeper understanding of how engines like Unreal and Unity actually work, so I built one from scratch.\n\nI architected and developed a modular 3D engine using OpenGL, C++ and GLFW, featuring decoupled subsystems, JSON-based level serialization, Phong lighting, and model loading via Assimp. I also built a custom reflection system for real-time variable updates and an asset manager for automatic asset discovery and management, and used Premake to maintain a consistent, cross-platform, multi-IDE build environment.\n\nI'm currently extending the engine with a module-based DLL architecture to support hot-reloadable systems, along with shader hot reloading.",
         tags: [ProjectTag.Cpp, ProjectTag.GameDev],
-        media: [image("/projects/Clarity/ClarityEngine_1.jpg") /*, youtube("YOUTUBE VIDEO ID!")*/]
+        media: [image("/projects/Clarity/ClarityEngine_1.jpg")]
     },
     {
         id: "project-dungeon-generator",
@@ -75,15 +75,15 @@ export const projects: Project[] = [
         description: "Developed a procedural dungeon generator that algorithmically stitches artist-designed levels into a walkable path. The system also dynamically populates each room with variable enemy spawns and randomized loot distributions.",
         tags: [ProjectTag.UnrealEngine, ProjectTag.GameDev],
         media: [image("/projects/Dungeon-builder/dungeon_1.jpg")]
-    }, 
+    },
     {
         id: "project-inventory-system",
         title: "Grid Based Inventory System",
-        description: "Building a grid-based inventory system inspired by Resident Evil 4 for an ongoing hobby project. Items are managed as UObject instances contained within a custom UActorComponent (UGridContainer), with state serialization handled via FInstancedStruct.",
-        tags: [ProjectTag.UnrealEngine],
+        description: "Built a grid-based inventory system inspired by Resident Evil 4 for an ongoing hobby project. Items are managed as UObject instances contained within a custom UActorComponent (UGridContainer), with state serialization handled via FInstancedStruct.",
+        tags: [ProjectTag.UnrealEngine, ProjectTag.GameDev],
         media: [image("/projects/grid-inventory/inventory_1.jpg")]
     },
-     {
+    {
         id: "project-portfolio",
         title: "This Portfolio",
         description: "This portfolio website was built with React, TypeScript and Tailwind, deployed on Cloudflare Pages.",
