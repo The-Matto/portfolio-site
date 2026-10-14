@@ -1,42 +1,43 @@
-import {getMediaThumbnailSrc, getProceduralCover, Project} from "../data/projects-data.tsx";
+import {Project} from "../data/projects-data.tsx";
+import {getStation} from "../data/transit-lines.ts";
+import StationBadge from "./signage/station-badge-component.tsx";
 
-export default function ProjectComponent({project, onClick, isActive}: {
+// One stop on the vertical route map. The line segments above and below the
+// badge take this station's line colour, so the route visibly changes colour
+// where it switches between the Game and Web lines.
+export default function ProjectComponent({project, onClick, isActive, isFirst, isLast}: {
     project: Project,
     onClick: (selectedProject: Project) => void,
-    isActive: boolean
+    isActive: boolean,
+    isFirst: boolean,
+    isLast: boolean
 }) {
 
-    const coverMedia = project.media?.[0];
+    const station = getStation(project);
 
     return (
-        <div onClick={() => {
-            onClick(project)
-        }}
-             className={`group relative h-50 items-center
-              rounded-lg shadow-md overflow-hidden transition-transform duration-500 hover:scale-105
-              hover:cursor-pointer hover:border-orange-500 border ${isActive ? "border-white" : "border-black"}`}>
+        <li id={station.code} className="relative isolate scroll-mt-28">
+            <span className={`pointer-events-none absolute left-[34px] z-10 w-2 ${isFirst ? "top-1/2" : "top-0"} ${isLast ? "bottom-1/2" : "bottom-0"}`}
+                  style={{backgroundColor: station.line.color}} aria-hidden="true"/>
 
-            {coverMedia ? (
-                <img
-                    className="absolute inset-0 w-full h-full object-cover saturate-50"
-                    src={getMediaThumbnailSrc(coverMedia)} alt={project.title}/>
-            ) : (
-                <div
-                    className={`absolute inset-0 bg-gradient-to-br saturate-50 ${getProceduralCover(project.id)} flex items-end justify-end`}>
-                    {/* Texture is its own layer, it also sets background-image so it
-                        would otherwise clobber the gradient above. */}
-                    <div className="procedural-cover absolute inset-0"/>
-                    <span
-                        className="text-8xl font-black text-white/10 -mb-3 -mr-1 select-none">{project.title.charAt(0)}</span>
-                </div>
-            )}
-            <div
-                className="inset-0 absolute bg-gradient-to-t from-black/90 via-black/30 to-transparent"/>
-
-            <div className="p-2 absolute bottom-0">
-                <h3 className="text-lg font-bold text-white group-hover:text-orange-600 duration-150">{project.title}</h3>
-            </div>
-
-        </div>
+            <button type="button" onClick={() => onClick(project)} aria-pressed={isActive}
+                    className={`relative flex w-full cursor-pointer items-center gap-4 px-2 py-3 text-left transition-colors duration-150
+                        ${isActive ? "bg-white shadow-[inset_4px_0_0_var(--color-ink)]" : "hover:bg-white/60"}`}>
+                <span className="relative z-20 pl-1.5">
+                    <StationBadge code={station.code} color={station.line.color} size="md"/>
+                </span>
+                <span className="min-w-0 flex-1">
+                    <span className="block text-[11px] font-medium tracking-[0.15em] text-ink/50">
+                        {station.line.nameJp} · {station.line.name} Line
+                    </span>
+                    <span className="block truncate text-lg font-bold">{project.title}</span>
+                </span>
+                {isActive && (
+                    <span className="hidden sm:block shrink-0 bg-ink px-2 py-1 text-[11px] font-bold leading-tight text-white text-center">
+                        現在地<br/><span className="font-medium text-white/70">You are here</span>
+                    </span>
+                )}
+            </button>
+        </li>
     );
 }

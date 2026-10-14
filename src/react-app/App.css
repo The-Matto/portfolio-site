@@ -1,107 +1,92 @@
 @import "tailwindcss";
 
-@keyframes slide-up-fade {
-    0% {
-        opacity: 0;
-        transform: translateY(16px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
+/* Tokyo transit signage palette. Line colours match the real Ginza (orange)
+   and Tozai (sky blue) lines; exit yellow is the standard station exit sign. */
+@theme {
+    --color-platform: #F2F1EC;
+    --color-ink: #16181D;
+    --color-sign: #24272F;
+    --color-rule: #D4D2C9;
+    --color-led: #FFB000;
+    --color-led-green: #5BE584;
+    --color-exit: #FFD200;
+    --color-line-g: #F39700;
+    --color-line-w: #009BBF;
 
-    }
+    --font-sans: "Noto Sans JP", ui-sans-serif, system-ui, sans-serif;
+    --font-dot: "DotGothic16", ui-monospace, monospace;
 }
 
-@keyframes bounce-loop {
-    0%, 100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-4px);
-    }
+body {
+    background-color: var(--color-platform);
+    color: var(--color-ink);
 }
 
-@keyframes float-drift {
-    0% {
-        transform: translate(0, 0) rotate(0deg);
-    }
-    50% {
-        transform: translate(16px, -22px) rotate(12deg);
-    }
-    100% {
-        transform: translate(0, 0) rotate(0deg);
-    }
-}
-
-/* Each hero-shape sets its own animation-duration/-delay inline for organic,
-   non-synchronized drifting. */
-.hero-shape {
-    transform-box: fill-box;
-    transform-origin: center;
-    animation-name: float-drift;
-    animation-timing-function: ease-in-out;
-    animation-iteration-count: infinite;
-}
-
-.animation-slide-up-kicker {
-    opacity: 0;
-    animation: slide-up-fade 1s ease-out 0s forwards;
-}
-
-.animation-slide-up-title {
-    opacity: 0;
-    animation: slide-up-fade 1s ease-out 0.5s forwards;
-}
-
-.animation-slide-up-subtext {
-    opacity: 0;
-    animation: slide-up-fade 1s ease-out 1.3s forwards;
-}
-
-.animation-slide-up-chevron {
-    opacity: 0;
-    animation: slide-up-fade 1s ease-out 2.3s forwards,
-    bounce-loop 2s ease-in-out 3.3s infinite;
-}
-
-.animation-slide-up-status {
-    opacity: 0;
-    animation: slide-up-fade 1s ease-out 2.1s forwards;
-}
-
-@keyframes heading-flash {
-    0% {
-        filter: drop-shadow(0 0 0 rgba(249, 115, 22, 0));
-    }
-    25% {
-        filter: drop-shadow(0 0 16px rgba(249, 115, 22, 0.85));
-    }
-    100% {
-        filter: drop-shadow(0 0 0 rgba(249, 115, 22, 0));
-    }
-}
-
-/* :target matches the section whose id is in the URL hash, so this fires
-   automatically on nav clicks with no JS or scroll-tracking needed. */
-#projects:target .section-heading,
-#about-me:target .section-heading,
-#contact:target .section-heading {
-    animation: heading-flash 1s ease-out;
-}
-
-/* Faint diagonal texture on generated project covers, so a project with no
-   screenshot yet reads as an intentional placeholder rather than a broken image. */
-.procedural-cover {
+/* Departure board: faint scanlines so the LED panel reads as a physical
+   display rather than a flat black box. */
+.led-panel {
+    background-color: #0B0C0E;
     background-image: repeating-linear-gradient(
-        135deg,
-        rgba(255, 255, 255, 0.035) 0px,
-        rgba(255, 255, 255, 0.035) 1px,
+        0deg,
+        rgba(255, 255, 255, 0.025) 0px,
+        rgba(255, 255, 255, 0.025) 1px,
         transparent 1px,
-        transparent 8px
+        transparent 3px
     );
 }
 
+.led-text {
+    text-shadow: 0 0 6px currentColor;
+}
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@keyframes marquee {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+/* The track holds two copies of the message, so sliding by -50% loops
+   seamlessly. */
+.marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee 28s linear infinite;
+}
+
+@keyframes led-blink {
+    0%, 60% {
+        opacity: 1;
+    }
+    61%, 100% {
+        opacity: 0.25;
+    }
+}
+
+.led-blink {
+    animation: led-blink 1.2s steps(1) infinite;
+}
+
+/* Diagonal hazard stripe used along the platform edge in the footer. */
+.platform-edge {
+    background-image: repeating-linear-gradient(
+        -45deg,
+        var(--color-exit) 0px,
+        var(--color-exit) 10px,
+        var(--color-ink) 10px,
+        var(--color-ink) 20px
+    );
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .marquee-track,
+    .led-blink {
+        animation: none;
+    }
+}
+
+html {
+    scroll-behavior: smooth;
+}

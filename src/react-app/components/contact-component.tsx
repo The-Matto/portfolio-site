@@ -1,28 +1,45 @@
-import GradientText from "./text-components/gradient-text-component.tsx";
 import {socialLinks} from "../data/social-links-data.ts";
 
+const labelsJp: Record<string, string> = {
+    email: "メール",
+    github: "ギットハブ",
+    linkedin: "リンクトイン",
+};
+
+// Styled as the yellow exit signage found in every Tokyo station, with each
+// contact method as a numbered exit.
 export default function Contact() {
     return (
-        <section id="contact" className="scroll-mt-24 w-full bg-purple-950 px-4 py-24">
-            <div className="max-w-4xl mx-auto">
-                <GradientText classNames="text-4xl pl-0 section-heading" text="Get In Touch"/>
-                <p className="-mt-1 text-base text-white/70">Reach out to me.</p>
+        <section id="contact" className="scroll-mt-20 w-full px-4 py-16">
+            <div className="max-w-5xl mx-auto bg-exit text-ink">
+                <div className="flex flex-wrap items-end gap-x-4 gap-y-1 border-b-4 border-ink px-5 py-5 sm:px-8">
+                    <span className="text-5xl sm:text-6xl font-black leading-none">出口</span>
+                    <h2 className="text-3xl sm:text-4xl font-black leading-none">Exit</h2>
+                    <p className="w-full sm:w-auto sm:ml-auto font-bold">Get in touch / お問い合わせ</p>
+                </div>
 
-                <div className="mt-6 bg-black/30 border border-white/10 rounded-xl p-6 md:p-8">
-                    <div className="flex flex-col gap-1">
-                        {socialLinks.map(link => (
-                            <a key={link.id} href={link.href}
+                <ul>
+                    {socialLinks.map((link, index) => (
+                        <li key={link.id} className="border-b-2 border-ink/15 last:border-b-0">
+                            <a href={link.href}
                                target={link.id === "email" ? undefined : "_blank"}
                                rel={link.id === "email" ? undefined : "noreferrer"}
-                               className="group flex items-baseline gap-3 font-mono text-lg border-b border-white/10 py-3 hover:border-orange-500 transition-colors duration-150">
-                                <span className="text-orange-500">{">"}</span>
-                                <span className="text-white/50 w-20 shrink-0">{link.label}</span>
+                               className="group flex items-center gap-4 px-5 py-4 sm:px-8 hover:bg-ink hover:text-exit transition-colors duration-150">
                                 <span
-                                    className="text-white group-hover:text-orange-400 transition-colors duration-150">{link.value}</span>
+                                    className="flex h-10 w-12 shrink-0 items-center justify-center bg-ink text-lg font-black text-exit group-hover:bg-exit group-hover:text-ink">
+                                    A{index + 1}
+                                </span>
+                                <span className="w-28 shrink-0 leading-tight">
+                                    <span className="block text-[11px] font-medium opacity-60">{labelsJp[link.id]}</span>
+                                    <span className="font-bold">{link.label}</span>
+                                </span>
+                                <span className="min-w-0 flex-1 truncate font-medium">{link.value}</span>
+                                <span className="text-2xl font-black transition-transform duration-150 group-hover:translate-x-1"
+                                      aria-hidden="true">→</span>
                             </a>
-                        ))}
-                    </div>
-                </div>
+                        </li>
+                    ))}
+                </ul>
             </div>
         </section>
     );

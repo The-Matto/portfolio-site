@@ -19,7 +19,7 @@ export default function SocialLinksNav({className}: { className?: string }) {
                        target={link.id === "email" ? undefined : "_blank"}
                        rel={link.id === "email" ? undefined : "noreferrer"}
                        aria-label={link.label}
-                       className="text-white/60 hover:text-orange-500 transition-colors duration-150">
+                       className="text-white/60 hover:text-line-g transition-colors duration-150">
                         <Icon className="size-5"/>
                     </a>
                 );

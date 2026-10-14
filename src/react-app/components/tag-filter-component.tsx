@@ -1,4 +1,4 @@
-import {ProjectTag, projectTagStyle} from "../data/projects-data.tsx";
+import {ProjectTag} from "../data/projects-data.tsx";
 
 export default function TagFilterComponent({tags, activeTags, onToggle, onClear}: {
     tags: ProjectTag[],
@@ -7,7 +7,10 @@ export default function TagFilterComponent({tags, activeTags, onToggle, onClear}
     onClear: () => void,
 }) {
     return (
-        <div className="flex flex-wrap items-center justify-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
+            <span className="mr-2 text-sm font-bold">
+                乗換 <span className="font-medium text-ink/60">Transfer</span>
+            </span>
             {tags.map(tag => {
                 const isActive = activeTags.has(tag);
                 return (
@@ -16,12 +19,12 @@ export default function TagFilterComponent({tags, activeTags, onToggle, onClear}
                         type="button"
                         onClick={() => onToggle(tag)}
                         aria-pressed={isActive}
-                        className={`font-mono text-sm px-3 py-1 rounded-md border cursor-pointer transition-all duration-150
+                        className={`cursor-pointer border px-3 py-1 text-sm font-medium transition-colors duration-150
                             ${isActive
-                            ? `${projectTagStyle[tag]} border-transparent text-white shadow-[0_0_14px_-3px_rgba(255,255,255,0.5)] scale-105`
-                            : "border-white/20 text-white/50 hover:text-white hover:border-white/40"}`}
+                            ? "border-ink bg-ink text-white"
+                            : "border-ink/25 bg-white text-ink/70 hover:border-ink hover:text-ink"}`}
                     >
-                        #{tag}
+                        {tag}
                     </button>
                 );
             })}
@@ -29,9 +32,9 @@ export default function TagFilterComponent({tags, activeTags, onToggle, onClear}
                 <button
                     type="button"
                     onClick={onClear}
-                    className="font-mono text-sm text-orange-400 hover:text-orange-300 underline underline-offset-4 cursor-pointer ml-1"
+                    className="ml-1 cursor-pointer text-sm font-bold underline underline-offset-4 hover:text-line-g"
                 >
-                    clear ✕
+                    Clear ✕
                 </button>
             )}
         </div>

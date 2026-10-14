@@ -14,22 +14,6 @@ export enum ProjectTag {
     Postgres = "Postgres",
 }
 
-export const projectTagStyle: Record<ProjectTag, string> = {
-    [ProjectTag.BrowserExtension]: "bg-slate-700",
-    [ProjectTag.UnrealEngine]: "bg-indigo-800",
-    [ProjectTag.Cpp]: "bg-blue-700",
-    [ProjectTag.GameDev]: "bg-fuchsia-800",
-    [ProjectTag.React]: "bg-cyan-700",
-    [ProjectTag.TypeScript]: "bg-sky-700",
-    [ProjectTag.Node]: "bg-emerald-700",
-    [ProjectTag.Cloudflare]: "bg-amber-600",
-    [ProjectTag.Backend]: "bg-green-700",
-    [ProjectTag.Frontend]: "bg-red-600",
-    [ProjectTag.Fullstack]: "bg-purple-800",
-    [ProjectTag.Redis]: "bg-rose-700",
-    [ProjectTag.Postgres]: "bg-teal-700"
-};
-
 export interface ProjectImageMedia {
     type: "image";
     src: string;
@@ -115,29 +99,3 @@ export const projects: Project[] = [
         media: [image("/projects/chrome-mouse-gestures/mouse-gestures_1.jpg")]
     },
 ];
-
-/**
- * Deterministic hash so the same project id always maps to the same
- * placeholder cover, no external image needed.
- */
-function hashString(value: string): number {
-    let hash = 0;
-    for (let i = 0; i < value.length; i++) {
-        hash = (hash * 31 + value.charCodeAt(i)) >>> 0;
-    }
-    return hash;
-}
-
-// Curated so procedural covers stay inside the site's own palette rather than
-// landing on an arbitrary/rainbow hue.
-const proceduralCovers = [
-    "from-purple-600 via-purple-500 to-orange-500",
-    "from-slate-500 via-slate-400 to-purple-600",
-    "from-orange-600 via-red-600 to-purple-600",
-    "from-purple-500 via-fuchsia-600 to-slate-500",
-    "from-zinc-500 via-slate-400 to-orange-600",
-];
-
-export function getProceduralCover(id: string): string {
-    return proceduralCovers[hashString(id) % proceduralCovers.length];
-}

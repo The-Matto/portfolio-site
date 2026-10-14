@@ -1,4 +1,5 @@
-import {getMediaThumbnailSrc, getProceduralCover, Project} from "../data/projects-data.tsx";
+import {getMediaThumbnailSrc, Project} from "../data/projects-data.tsx";
+import {getStation} from "../data/transit-lines.ts";
 import {useEffect, useState} from "react";
 import {ChevronLeftIcon, ChevronRightIcon} from "@heroicons/react/16/solid";
 import {PlayCircleIcon} from "@heroicons/react/24/solid";
@@ -17,6 +18,7 @@ export default function ProjectImageCarousel({project, className}: { project: Pr
     const mediaCount = media.length;
     const hasMedia = mediaCount > 0;
     const activeMedia = media[activeIndex];
+    const station = getStation(project);
 
     useEffect(() => {
         setActiveIndex(0);
@@ -37,15 +39,15 @@ export default function ProjectImageCarousel({project, className}: { project: Pr
     };
 
     return (
-        <div className={`relative w-full rounded-lg overflow-hidden ${className ?? "h-56"}`}>
+        <div className={`relative w-full overflow-hidden bg-ink ${className ?? "h-56 sm:h-64"}`}>
             {!hasMedia ? (
-                <div
-                    className={`w-full h-full flex items-end justify-end bg-gradient-to-br saturate-50 ${getProceduralCover(project.id)}`}>
-                    <span
-                        className="text-9xl font-black text-white/10 -mb-4 -mr-2 select-none">{project.title.charAt(0)}</span>
+                // No screenshot yet: show the station code large, like a platform number sign.
+                <div className="flex h-full w-full items-center justify-center bg-sign">
+                    <span className="select-none text-8xl font-black tracking-tight"
+                          style={{color: station.line.color}}>{station.code}</span>
                 </div>
             ) : activeMedia.type === "image" ? (
-                <img className="w-full h-full object-cover saturate-50"
+                <img className="w-full h-full object-cover"
                      src={activeMedia.src}
                      alt={`${project.title} screenshot ${activeIndex + 1} of ${mediaCount}`}/>
             ) : isPlaying ? (
@@ -58,7 +60,7 @@ export default function ProjectImageCarousel({project, className}: { project: Pr
             ) : (
                 <button type="button" onClick={() => setIsPlaying(true)} aria-label="Play video"
                         className="group relative block w-full h-full cursor-pointer">
-                    <img className="w-full h-full object-cover saturate-50"
+                    <img className="w-full h-full object-cover"
                          src={getMediaThumbnailSrc(activeMedia)}
                          alt={`${project.title} video thumbnail`}/>
                     <div
@@ -72,11 +74,11 @@ export default function ProjectImageCarousel({project, className}: { project: Pr
             {mediaCount > 1 && (
                 <>
                     <button type="button" onClick={() => changeSlide(false)} aria-label="Previous slide"
-                            className="absolute top-1/2 left-2 -translate-y-1/2 z-10 flex size-8 items-center justify-center rounded-full bg-black/60 text-white hover:bg-orange-600 transition-colors duration-150 cursor-pointer">
+                            className="absolute top-1/2 left-2 -translate-y-1/2 z-10 flex size-8 items-center justify-center bg-ink/80 text-white hover:bg-line-g transition-colors duration-150 cursor-pointer">
                         <ChevronLeftIcon className="size-5"/>
                     </button>
                     <button type="button" onClick={() => changeSlide(true)} aria-label="Next slide"
-                            className="absolute top-1/2 right-2 -translate-y-1/2 z-10 flex size-8 items-center justify-center rounded-full bg-black/60 text-white hover:bg-orange-600 transition-colors duration-150 cursor-pointer">
+                            className="absolute top-1/2 right-2 -translate-y-1/2 z-10 flex size-8 items-center justify-center bg-ink/80 text-white hover:bg-line-g transition-colors duration-150 cursor-pointer">
                         <ChevronRightIcon className="size-5"/>
                     </button>
 
@@ -84,8 +86,8 @@ export default function ProjectImageCarousel({project, className}: { project: Pr
                         {media.map((_, index) => (
                             <button key={index} type="button" onClick={() => goToIndex(index)}
                                     aria-label={`Go to slide ${index + 1}`}
-                                    className={`size-1.5 rounded-full transition-colors duration-150 cursor-pointer ${
-                                        index === activeIndex ? "bg-orange-500" : "bg-white/40 hover:bg-white/70"
+                                    className={`h-1.5 w-5 transition-colors duration-150 cursor-pointer ${
+                                        index === activeIndex ? "bg-white" : "bg-white/40 hover:bg-white/70"
                                     }`}/>
                         ))}
                     </div>
