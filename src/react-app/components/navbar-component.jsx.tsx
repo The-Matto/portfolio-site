@@ -11,6 +11,17 @@ import {
 import NavLink from "./nav-clickable-link.tsx";
 import SocialLinksNav from "./social-links-nav-component.tsx";
 
+// Same station badge as the favicon, drawn in HTML so it picks up the
+// site's font rather than the system fallback an SVG favicon is stuck with.
+function LogoBadge() {
+    return (
+        <span aria-hidden="true"
+              className="flex size-9 items-center justify-center rounded-lg border-[3px] border-ink bg-white text-sm font-black tracking-tighter text-ink">
+            MH
+        </span>
+    );
+}
+
 export default function NavBar() {
 
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -27,11 +38,7 @@ export default function NavBar() {
                 <div className="flex lg:flex-1">
                     <a href="/" className="-m-1.5 p-1.5">
                         <span className="sr-only">Matt Heritage</span>
-                        <img
-                            alt="logo"
-                            src="/MattLogo.png"
-                            className="h-8 w-auto"
-                        />
+                        <LogoBadge/>
                     </a>
                 </div>
 
@@ -64,11 +71,8 @@ export default function NavBar() {
                     className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-sign p-6 sm:max-w-sm border-l-4 border-line-g">
                     <div className="flex items-center justify-between">
                         <a href="/" className="-m-1.5 p-1.5">
-                            <img
-                                alt=""
-                                src="/MattLogo.png"
-                                className="h-8 w-auto"
-                            />
+                            <span className="sr-only">Matt Heritage</span>
+                            <LogoBadge/>
                         </a>
                         <button
                             type="button"
