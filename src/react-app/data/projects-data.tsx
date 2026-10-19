@@ -81,7 +81,7 @@ export const projects: Project[] = [
         title: "Grid Based Inventory System",
         description: "Built a grid-based inventory system inspired by Resident Evil 4 for an ongoing hobby project. Items are managed as UObject instances contained within a custom UActorComponent (UGridContainer), with state serialization handled via FInstancedStruct.",
         tags: [ProjectTag.UnrealEngine, ProjectTag.GameDev],
-        media: [image("/projects/grid-inventory/inventory_1.jpg")]
+        media: [youtube("OXEIT8Hv2aY"), image("/projects/grid-inventory/inventory_1.jpg")]
     },
     {
         id: "project-portfolio",
