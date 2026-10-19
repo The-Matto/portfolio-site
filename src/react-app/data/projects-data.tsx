@@ -70,18 +70,18 @@ export const projects: Project[] = [
         media: [image("/projects/Clarity/ClarityEngine_1.jpg")]
     },
     {
-        id: "project-dungeon-generator",
-        title: "Procedural Dungeon Builder",
-        description: "Developed a procedural dungeon generator that algorithmically stitches artist-designed levels into a walkable path. The system also dynamically populates each room with variable enemy spawns and randomized loot distributions.",
-        tags: [ProjectTag.UnrealEngine, ProjectTag.GameDev],
-        media: [image("/projects/Dungeon-builder/dungeon_1.jpg")]
-    },
-    {
         id: "project-inventory-system",
         title: "Grid Based Inventory System",
-        description: "Built a grid-based inventory system inspired by Resident Evil 4 for an ongoing hobby project. Items are managed as UObject instances contained within a custom UActorComponent (UGridContainer), with state serialization handled via FInstancedStruct.",
+        description: "Built a grid-based inventory system inspired by Resident Evil 4 for a hobby project. Items are managed as UObject instances inside a custom UActorComponent (UGridContainer), with state serialization handled via FInstancedStruct.\n\nHovering an item opens a tooltip with more information about it, including a diagram of the slots it takes up. I drew that diagram with a custom Slate widget, so it renders as a single widget instead of up to 16 child UMG widgets (one per grid cell), cutting the UObject count and layout work for every tooltip.",
         tags: [ProjectTag.UnrealEngine, ProjectTag.GameDev],
-        media: [youtube("OXEIT8Hv2aY"), image("/projects/grid-inventory/inventory_1.jpg")]
+        media: [youtube("OXEIT8Hv2aY"), image("/projects/grid-inventory/inventory_1.jpg"), image("/projects/grid-inventory/inventory_2.jpg")]
+    },
+    {
+        id: "project-dungeon-generator",
+        title: "Procedural Dungeon Builder",
+        description: "Developed a procedural dungeon generator that algorithmically stitches artist-designed levels into a walkable path, then populates each room with variable enemy spawns and randomized loot.\n\nGeneration is configurable, so boss rooms can be placed at the end of the path, and specific categories of room can be limited to certain depths in the level.",
+        tags: [ProjectTag.UnrealEngine, ProjectTag.GameDev],
+        media: [image("/projects/Dungeon-builder/dungeon_1.jpg"), image("/projects/Dungeon-builder/dungeon_2.jpg")]
     },
     {
         id: "project-portfolio",
