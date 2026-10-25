@@ -72,7 +72,7 @@ export const projects: Project[] = [
     {
         id: "project-inventory-system",
         title: "Grid Based Inventory System",
-        description: "Built a grid-based inventory system inspired by Resident Evil 4 for a hobby project. Items are managed as UObject instances inside a custom UActorComponent (UGridContainer), with state serialization handled via FInstancedStruct.\n\nHovering an item opens a tooltip with more information about it, including a diagram of the slots it takes up. I drew that diagram with a custom Slate widget, so it renders as a single widget instead of up to 16 child UMG widgets (one per grid cell), cutting the UObject count and layout work for every tooltip.",
+        description: "Built a grid-based inventory system inspired by Resident Evil 4 for a hobby project. Each item is defined in a Data Asset, so new items can be added and tuned without touching code, and items in the inventory are UObject instances inside a custom UActorComponent (UGridContainer), with state serialization handled via FInstancedStruct.\n\nHovering an item opens a tooltip with more information about it, including a diagram of the slots it takes up. I drew that diagram with a custom Slate widget, so it renders as a single widget instead of up to 16 child UMG widgets (one per grid cell), cutting the UObject count and layout work for every tooltip.",
         tags: [ProjectTag.UnrealEngine, ProjectTag.GameDev],
         media: [youtube("OXEIT8Hv2aY"), image("/projects/grid-inventory/inventory_1.jpg"), image("/projects/grid-inventory/inventory_2.jpg")]
     },
